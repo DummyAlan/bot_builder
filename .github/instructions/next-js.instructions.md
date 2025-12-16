@@ -1,5 +1,5 @@
 ---
-applyTo: '**/*.{ts,tsx}'
+applyTo: "generate-implementation-plan"
 name: "Next.js Framework Conventions"
 description: "Next.js App Router conventions and React best practices for this project"
 ---

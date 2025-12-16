@@ -1,5 +1,5 @@
 ---
-applyTo: "**"
+applyTo: "generate-implementation-plan"
 name: "Behavioral Instructions"
 description: "Communication style and interaction guidelines for AI assistance"
 ---

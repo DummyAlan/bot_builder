@@ -1,5 +1,5 @@
 ---
-applyTo: '**/*.{tsx,css}'
+applyTo: "generate-implementation-plan"
 name: "Gaming Design System"
 description: "Visual design guidelines for gaming-themed UI with neon aesthetics"
 ---

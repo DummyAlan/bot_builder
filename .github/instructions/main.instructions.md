@@ -1,5 +1,5 @@
 ---
-applyTo: "**"
+applyTo: "generate-implementation-plan"
 name: "Main Instructions"
 description: "Core role expectations and methodology for AI code assistance"
 ---

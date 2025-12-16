@@ -1,5 +1,5 @@
 ---
-applyTo: "**"
+applyTo: "generate-implementation-plan"
 name: "Project Structure Reference"
 description: "Directory layout and file organization for this Next.js application"
 ---
