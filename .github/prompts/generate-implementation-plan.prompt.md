@@ -8,7 +8,7 @@ rule_name: generate-implementation-plan
 rule_version: latest
 ---
 
-# Prompt: Generate Detailed Implementation Plan from User Story (Figma Design Support)
+# Prompt: Generate Detailed Implementation Plan from User Story
 
 ## Role
 
@@ -18,14 +18,41 @@ You are a Senior Full-Stack Developer and Technical Lead, expert in analyzing re
 
 The input will consist of:
 
-- A User Story in standard format (As a [role], I want [goal], so that [benefit])
+- A User Story file from `/docs/stories/` directory
+- User Story in standard format (As a [role], I want [goal], so that [benefit])
 - Acceptance Criteria
 - Optional Notes
-- Design specifications provided as a Figma link (e.g., https://www.figma.com/file/...)
+- Optional design specifications or mockups
 
 ## Output Requirements
 
-The output MUST be a comprehensive implementation plan in Markdown format, appended to the original User Story file under a new heading `## Implementation Plan`. The plan MUST contain all of the following sections with the specified information:
+### Directory Structure
+All generated implementation plans MUST be stored in the `/docs/plans/` directory. If this directory does not exist, create it before generating plans.
+
+Directory structure:
+```
+docs/
+├── stories/
+│   ├── 01-feature-name.md
+│   └── ...
+└── plans/
+    ├── 01-feature-name-plan.md
+    └── ...
+```
+
+### File Naming Convention
+Implementation plan files MUST follow this naming pattern:
+- Match the corresponding story number
+- Use the story's kebab-case title
+- Append `-plan` suffix
+- Format: `##-story-title-plan.md`
+
+Examples:
+- Story: `/docs/stories/01-upload-and-extract-si-data.md`
+- Plan: `/docs/plans/01-upload-and-extract-si-data-plan.md`
+
+### File Content Format
+The output MUST be a comprehensive implementation plan in Markdown format as a standalone file. The plan MUST contain all of the following sections with the specified information:
 
 ### 1. Feature Overview
 
@@ -79,7 +106,7 @@ This section MUST:
 
 This section MUST:
 
-- Use the `get_figma_data` tool to extract all required design tokens, color values, spacing, typography, and layout details directly from the provided Figma link. Document these values explicitly in the plan.
+- If design specifications or mockups are provided, document all visual requirements explicitly
 - Include a complete color analysis table:
   ```
   | Design Color | Semantic Purpose | Element | Implementation Method |
@@ -91,8 +118,9 @@ This section MUST:
 - Create a visual hierarchy diagram showing the containment structure
 - List all typography details (family, size, weight, line-height)
 - Include visual verification requirements as a checklist
-- Address responsive behavior as specified in the design
-- Map design elements to implementation counterparts (Shadcn/ui components, Tailwind classes)
+- Address responsive behavior requirements
+- Map design elements to implementation counterparts (Tailwind classes, HTML elements)
+- If no design specifications are provided, define reasonable UI defaults based on common patterns
 
 ### 6. Data Flow & State Management
 
@@ -137,14 +165,13 @@ If included, this section MUST:
 
 This section MUST:
 
-- Create an explicit mapping between design specs and Tailwind implementation
-- Always use direct hex color values from design specs instead of Tailwind color classes
+- Create an explicit mapping between design requirements and Tailwind implementation
+- Always use direct hex color values instead of Tailwind color classes for custom colors
 - Only use semantic color tokens when absolutely necessary
 - Document font sizes, weights, and line heights with exact implementation approach
 - Create a visual implementation checklist
-- List key Shadcn/ui components to be utilized
 - Note responsiveness considerations
-- Do not add or modify color tokens in Tailwind configuration. Always use direct hex values for all colors in className as per design specs.
+- Do not add or modify color tokens in Tailwind configuration. Always use direct hex values for all colors in className.
 
 ### 10. Testing Strategy
 
@@ -226,20 +253,21 @@ If the feature includes a UI element (component, widget, or page):
 If applicable, this section MUST:
 
 - List each referenced file with a relative path and short description
+- Link to the original user story file in `/docs/stories/`
 - Ensure all referenced documents, APIs, or design files are linked
-- If a Figma link is used, include the link in the References section with a short description.
 
 ## Quality Criteria
 
 The implementation plan MUST:
 
+- Be stored in `/docs/plans/` directory with proper naming convention
+- Reference the original user story file from `/docs/stories/`
 - Be based on the existing project structure and conventions
 - Prioritize component reuse over creating new components
 - Provide concrete file paths, component names, and type definitions
 - Be clear and detailed enough for implementation without significant ambiguity
-- Accurately reflect design specifications
+- Accurately reflect any provided design specifications
 - Include proper Mermaid diagram formatting to ensure correct rendering
-- When a Figma link is provided, ensure all design details (colors, spacing, typography, etc.) are extracted and documented explicitly from the Figma file, and referenced in the implementation plan.
 
 ## Example Section Format
 

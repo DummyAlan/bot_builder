@@ -18,11 +18,31 @@ Task
 Analyze the provided meeting transcript and generate a list of user stories based on the discussion. The stories should represent distinct pieces of functionality or value from an end-user perspective.
 
 Output Format & Guidelines
-Generate each user story as a separate Markdown file within the docs/stories/ directory of the project.
 
-File Naming Convention: Use a two-digit sequential number prefix followed by kebab-case based on the story's core goal (e.g., 01-search-products-by-name.md, 02-filter-products-by-category.md).
+### Directory Structure
+All generated user stories MUST be stored in the `/docs/stories/` directory. If this directory does not exist, create it before generating stories.
 
-File Content Format: Each markdown file should contain one user story following the standard format:
+Directory structure:
+```
+docs/
+└── stories/
+    ├── 01-search-products-by-name.md
+    ├── 02-filter-products-by-category.md
+    └── ...
+```
+
+### File Naming Convention
+Use a two-digit sequential number prefix followed by kebab-case based on the story's core goal.
+
+Format: `##-story-brief-title.md`
+
+Examples:
+- `/docs/stories/01-search-products-by-name.md`
+- `/docs/stories/02-filter-products-by-category.md`
+- `/docs/stories/03-add-items-to-cart.md`
+
+### File Content Format
+Each markdown file should contain one user story following the standard format:
 
 # User Story: [Story Number] - [Brief Title Describing the Goal]
 
@@ -58,23 +78,49 @@ Ignore conversational filler, off-topic discussions, or administrative details u
 If the transcript mentions specific user roles, use them. Otherwise, infer logical user types (e.g., "user," "administrator," "guest").
 If acceptance criteria are explicitly discussed, include them as bullet points under the relevant story.
 Present the output as a clear list of user stories.
-Example
-Input Transcript Snippet:
+## Workflow
+
+1. **Analyze** the meeting transcript to identify distinct user needs and features
+2. **Create** the `/docs/stories/` directory if it doesn't exist
+3. **Generate** individual markdown files for each user story in `/docs/stories/`
+4. **Number** stories sequentially starting from 01
+5. **Validate** each story against INVEST principles before creating the file
+
+## Example
+
+### Input Transcript Snippet:
 
 "...Okay, so users need a way to find products quickly. Sarah mentioned searching by name is essential. John added that filtering by category would be great too, especially for browsing. We need to make sure they see the results clearly, maybe with images and prices..."
 
-Output Stories:
+### Output Files:
 
-As a shopper, I want to search for products by their name, so that I can quickly find specific items I'm looking for.
+**File: `/docs/stories/01-search-products-by-name.md`**
+```markdown
+# User Story: 1 - Search Products by Name
 
-Acceptance Criteria:
-Search input is available on the main product listing page.
-Typing a product name and submitting returns relevant products.
-Search results display product image, name, and price.
-As a shopper, I want to filter products by category, so that I can browse items within specific areas of interest.
+**As a** shopper,
+**I want** to search for products by their name,
+**so that** I can quickly find specific items I'm looking for.
 
-Acceptance Criteria:
-Category filter options are presented clearly.
-Selecting a category updates the product list to show only items in that category.
-Multiple categories can be selected (if discussed).
-The currently active filter is indicated.
+## Acceptance Criteria
+
+- Search input is available on the main product listing page.
+- Typing a product name and submitting returns relevant products.
+- Search results display product image, name, and price.
+```
+
+**File: `/docs/stories/02-filter-products-by-category.md`**
+```markdown
+# User Story: 2 - Filter Products by Category
+
+**As a** shopper,
+**I want** to filter products by category,
+**so that** I can browse items within specific areas of interest.
+
+## Acceptance Criteria
+
+- Category filter options are presented clearly.
+- Selecting a category updates the product list to show only items in that category.
+- Multiple categories can be selected (if discussed).
+- The currently active filter is indicated.
+```
