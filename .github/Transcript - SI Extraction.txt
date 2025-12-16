@@ -1,0 +1,15 @@
+Product Owner: External customers need to process Shipping Instructions faster. We should extract SI data from PDF uploads automatically.
+
+Designer: Upload flow with template-based extraction? Then show the extracted fields in a form?
+
+Developer: We'll need SI templates. Each customer might use different formats.
+
+PO: Start with one common template. Extract the data, validate it, and auto-fix issues like format mismatches or missing required fields.
+
+Designer: What if validation can't fix something?
+
+PO: Let users manually edit with inline suggestions. Show the original SI PDF alongside for easy reference.
+
+Developer: After they confirm, we submit to IRIS API?
+
+PO: Yes, and handle failures gracefully — retry logic and user notifications.
