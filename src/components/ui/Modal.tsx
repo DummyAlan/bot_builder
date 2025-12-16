@@ -78,11 +78,9 @@ export const Modal = ({
           e.preventDefault();
           lastElement?.focus();
         }
-      } else {
-        if (document.activeElement === lastElement) {
-          e.preventDefault();
-          firstElement?.focus();
-        }
+      } else if (document.activeElement === lastElement) {
+        e.preventDefault();
+        firstElement?.focus();
       }
     };
 
@@ -112,7 +110,7 @@ export const Modal = ({
       {/* Modal */}
       <div
         ref={modalRef}
-        className={`relative bg-[#18181B] rounded-lg shadow-2xl border border-[#22D3EE] w-full ${sizeClasses[size]} animate-in fade-in zoom-in-95 duration-200`}
+        className={`relative bg-[#18181B] rounded-lg shadow-2xl border-2 border-[#22D3EE]/40 w-full ${sizeClasses[size]} animate-in fade-in zoom-in-95 duration-200 shadow-[#22D3EE]/20 border-pulse`}
         role="dialog"
         aria-modal="true"
         aria-labelledby="modal-title"
@@ -123,6 +121,7 @@ export const Modal = ({
           <h2
             id="modal-title"
             className="text-xl font-bold text-[#FFFFFF]"
+            style={{ textShadow: '0 0 20px rgba(34, 211, 238, 0.4)' }}
             data-testid="modal-title"
           >
             {title}
@@ -158,7 +157,7 @@ export const Modal = ({
   );
 
   // Render in portal
-  return typeof window !== 'undefined'
-    ? createPortal(modalContent, document.body)
-    : null;
+  return globalThis.window === undefined
+    ? null
+    : createPortal(modalContent, document.body);
 };

@@ -9,19 +9,25 @@ export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> 
 
 export const Input = React.forwardRef<HTMLInputElement, InputProps>(
   ({ label, error, warning, isValid, className = '', id, ...props }, ref) => {
-    const inputId = id || label?.toLowerCase().replace(/\s+/g, '-');
+    const inputId = id || label?.toLowerCase().replaceAll(/\s+/g, '-');
+
+    const getAriaDescribedBy = () => {
+      if (error) return `${inputId}-error`;
+      if (warning) return `${inputId}-warning`;
+      return undefined;
+    };
     
     const getBorderClass = () => {
       if (error) {
         return 'border-[#ef4444] focus:border-[#ef4444] focus:ring-[#ef4444]/20 shadow-lg shadow-[#ef4444]/30';
       }
       if (warning) {
-        return 'border-[#f97316] focus:border-[#f97316] focus:ring-[#f97316]/20';
+        return 'border-[#f97316] focus:border-[#f97316] focus:ring-[#f97316]/20 shadow-[#f97316]/20';
       }
       if (isValid) {
-        return 'border-[#10b981]/50 focus:border-[#10b981] focus:ring-[#10b981]/20';
+        return 'border-[#10b981]/50 focus:border-[#10b981] focus:ring-[#10b981]/20 shadow-[#10b981]/20';
       }
-      return 'border-[#3f3f46] focus:border-[#22d3ee] focus:ring-[#22d3ee]/20';
+      return 'border-[#3f3f46] focus:border-[#22d3ee] focus:ring-[#22d3ee]/20 focus:shadow-lg focus:shadow-[#22d3ee]/20';
     };
     
     return (
@@ -55,7 +61,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
           `}
           data-testid="ui-input"
           aria-invalid={error ? 'true' : 'false'}
-          aria-describedby={error ? `${inputId}-error` : warning ? `${inputId}-warning` : undefined}
+          aria-describedby={getAriaDescribedBy()}
           {...props}
         />
         {error && (
